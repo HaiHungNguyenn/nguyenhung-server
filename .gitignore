@@ -401,3 +401,6 @@ global.json
 .idea/
 $HOME
 .env
+
+nguyenhung-server.*
+products.*

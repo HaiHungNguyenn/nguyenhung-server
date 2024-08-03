@@ -1,0 +1,16 @@
+﻿services:
+  nguyenhung.api:
+    image: nguyenhung.api
+    build:
+      context: .
+      dockerfile: NguyenHung.Api/Dockerfile
+    ports:
+      - 10000:8080
+  nginx:
+    image: nginx:latest
+    volumes:
+      - D:\Vigig\domain.conf:/etc/nginx/conf.d/default.conf
+    restart: always
+    ports:
+      - 80:80
+

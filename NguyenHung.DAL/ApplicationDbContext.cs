@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NguyenHung.Common.Helpers;
 using NguyenHung.DAL.Configurations;
 using NguyenHung.DAL.Models;
 
@@ -28,7 +29,13 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         if (optionsBuilder.IsConfigured)
             return;
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlite("Data Source=nguyenhung-server.db");
+
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        LoggingHelper.LogInsideTheBox(environment ?? "");
+
+        optionsBuilder.UseSqlite(environment == "Production"
+            ? "Data Source=app.db"
+            : "Data Source=nguyenhung-server.db");
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
